@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import WRITEN_QUESTIONS from "./constants/questions"
 import { Button, Card, Space, Rate, Typography } from "antd"
 import { RedoOutlined } from "@ant-design/icons"
@@ -20,6 +20,22 @@ function getRandom(n, total) {
 function App() {
   const [questions, setQuestions] = useState([])
 
+  useEffect(() => {
+    var setVanta = () => {
+      if (window.VANTA)
+        window.VANTA.NET({
+          el: "body",
+          mouseControls: false,
+          touchControls: false,
+          gyroControls: false,
+          minHeight: window.innerHeight,
+          scale: 1.0,
+          scaleMobile: 1.0,
+        })
+    }
+    setVanta()
+  }, [])
+
   return (
     <div
       style={{
@@ -28,10 +44,9 @@ function App() {
         flexDirection: "column",
         alignItems: "center",
         gap: "40px",
-        justifySelf: "center",
       }}
     >
-      <Title>Get your Exam questions</Title>
+      <Title style={{ color: "white" }}>Get your Exam questions</Title>
       {/* <Slider marks={marks} defaultValue={10} max={10} /> */}
       <Button
         type="primary"
@@ -41,8 +56,6 @@ function App() {
         size="large"
         onClick={() => {
           setQuestions(getRandom(5, WRITEN_QUESTIONS.length - 1))
-          // setC2EAudios(getRandom(1, C2E_AUDIOS.length))
-          // setE2CAudios(getRandom(1, E2C_AUDIOS.length))
         }}
       >
         Get Questions!
