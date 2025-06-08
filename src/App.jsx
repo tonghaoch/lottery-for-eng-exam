@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react"
 import WRITEN_QUESTIONS from "./constants/questions"
-import { Button, Card, Space, Rate, Typography } from "antd"
+import { Button, Card, Space, Rate, Typography, Row, Col } from "antd"
 import { RedoOutlined } from "@ant-design/icons"
 
 const { Title } = Typography
@@ -39,7 +39,7 @@ function App() {
   return (
     <div
       style={{
-        width: "80vw",
+        width: "95vw",
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
@@ -60,33 +60,43 @@ function App() {
       >
         Get Questions!
       </Button>
-      <Space direction="horizontal" size={16}>
+      <Row gutter={[16, 16]}>
         {questions.length > 0 &&
           questions.map((i) => (
-            <Card
+            <Col
+              xs={{ flex: "100%" }}
+              sm={{ flex: "50%" }}
+              md={{ flex: "40%" }}
+              lg={{ flex: "30%" }}
+              xl={{ flex: "20%" }}
               key={WRITEN_QUESTIONS[i].question}
-              style={{
-                width: 250,
-                height: 200,
-              }}
-              styles={{
-                body: {
-                  height: "100%",
-                  display: "flex",
-                  flexDirection: "column",
-                  justifyContent: "space-between",
-                },
-              }}
             >
-              <p>{WRITEN_QUESTIONS[i].question}</p>
-              <Rate
-                disabled
-                allowHalf
-                defaultValue={WRITEN_QUESTIONS[i].score}
-              />
-            </Card>
+              <Card
+                style={{
+                  minWidth: 280,
+                  height: 200,
+                  fontSize: "16px",
+                }}
+                styles={{
+                  body: {
+                    height: "100%",
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "space-between",
+                    alignItems: "center",
+                  },
+                }}
+              >
+                <p>{WRITEN_QUESTIONS[i].question}</p>
+                <Rate
+                  disabled
+                  allowHalf
+                  defaultValue={WRITEN_QUESTIONS[i].score}
+                />
+              </Card>
+            </Col>
           ))}
-      </Space>
+      </Row>
     </div>
   )
 }
