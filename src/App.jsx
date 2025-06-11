@@ -69,6 +69,7 @@ function App() {
         flexDirection: "column",
         alignItems: "center",
         gap: "40px",
+        marginTop: "120px",
       }}
     >
       <Title style={{ color: "white" }}>Get your Exam questions</Title>
@@ -98,7 +99,7 @@ function App() {
             >
               <Card
                 style={{
-                  minWidth: 280,
+                  minWidth: 240,
                   height: 200,
                   fontSize: "16px",
                 }}
@@ -133,7 +134,7 @@ function App() {
         Get Audio Question!
       </Button>
       {audioQuestion && (
-        <Card style={{ minWidth: 300, textAlign: "center" }}>
+        <Card style={{ minWidth: 240, textAlign: "center" }}>
           <Space direction="vertical">
             <p>{audioQuestion.split(".")[0]}</p>
             <Button
@@ -147,7 +148,7 @@ function App() {
             />
             <audio
               ref={audioRef}
-              src={`lottery-for-eng-exam/audio/${audioQuestion}`}
+              src={`audio/${audioQuestion}`}
               onEnded={() => setIsPlaying(false)}
               preload="metadata"
             />
