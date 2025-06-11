@@ -1,7 +1,12 @@
-import { useEffect, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 import WRITEN_QUESTIONS from "./constants/questions"
 import { Button, Card, Space, Rate, Typography, Row, Col } from "antd"
-import { RedoOutlined } from "@ant-design/icons"
+import {
+  PauseCircleOutlined,
+  PlayCircleOutlined,
+  RedoOutlined,
+} from "@ant-design/icons"
+import AUDIO_FILES from "./constants/audioQuestions"
 
 const { Title } = Typography
 
@@ -19,6 +24,26 @@ function getRandom(n, total) {
 
 function App() {
   const [questions, setQuestions] = useState([])
+  const [audioQuestion, setAudioQuestion] = useState(null)
+  const [isPlaying, setIsPlaying] = useState(false)
+  const audioRef = useRef(null)
+
+  const getRandomAudio = () => {
+    const randomIndex = Math.floor(Math.random() * AUDIO_FILES.length)
+    setAudioQuestion(AUDIO_FILES[randomIndex])
+    setIsPlaying(false)
+  }
+
+  const toggleAudio = () => {
+    if (audioRef.current) {
+      if (isPlaying) {
+        audioRef.current.pause()
+      } else {
+        audioRef.current.play()
+      }
+      setIsPlaying(!isPlaying)
+    }
+  }
 
   useEffect(() => {
     var setVanta = () => {
@@ -97,6 +122,38 @@ function App() {
             </Col>
           ))}
       </Row>
+      <Button
+        type="primary"
+        shape="round"
+        icon={<RedoOutlined />}
+        iconPosition="end"
+        size="large"
+        onClick={getRandomAudio}
+      >
+        Get Audio Question!
+      </Button>
+      {audioQuestion && (
+        <Card style={{ minWidth: 300, textAlign: "center" }}>
+          <Space direction="vertical">
+            <p>{audioQuestion.split(".")[0]}</p>
+            <Button
+              type="primary"
+              shape="circle"
+              size="large"
+              icon={
+                isPlaying ? <PauseCircleOutlined /> : <PlayCircleOutlined />
+              }
+              onClick={toggleAudio}
+            />
+            <audio
+              ref={audioRef}
+              src={`lottery-for-eng-exam/audio/${audioQuestion}`}
+              onEnded={() => setIsPlaying(false)}
+              preload="metadata"
+            />
+          </Space>
+        </Card>
+      )}
     </div>
   )
 }
