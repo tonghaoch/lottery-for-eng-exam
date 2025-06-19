@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react"
+import { useRef, useState } from "react"
 import WRITEN_QUESTIONS from "./constants/questions"
 import { Button, Card, Space, Rate, Typography, Row, Col } from "antd"
 import {
@@ -44,22 +44,6 @@ function App() {
             setIsPlaying(!isPlaying)
         }
     }
-
-    useEffect(() => {
-        var setVanta = () => {
-            if (window.VANTA)
-                window.VANTA.NET({
-                    el: "body",
-                    mouseControls: false,
-                    touchControls: false,
-                    gyroControls: false,
-                    minHeight: window.innerHeight,
-                    scale: 1.0,
-                    scaleMobile: 1.0,
-                })
-        }
-        setVanta()
-    }, [])
 
     return (
         <div
